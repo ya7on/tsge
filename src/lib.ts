@@ -5,6 +5,7 @@ import {BaseGameObject} from "./objects/base";
 import {Sprite} from "./sprite";
 import {KeyboardEmitter} from "./keyboardEmitter";
 import {GameMap} from "./map";
+import {chechCollision} from "./collision";
 
 export class Engine {
     private readonly canvas: Canvas;
@@ -51,6 +52,16 @@ export class Engine {
         for (const object of this.map.getAllObjects()) {
             object.handleStep(this.keyboardEmitter.keysPressed);
             object.onStep(this.keyboardEmitter.keysPressed);
+            for (const otherObject of this.map.getAllObjects()) {
+                if (object === otherObject) {
+                    continue;
+                }
+                const objectBorders = object.getVisibilityBorders();
+                const otherObjectBorders = otherObject.getVisibilityBorders();
+                if (chechCollision(objectBorders, otherObjectBorders)) {
+                    object.onCollision(otherObject);
+                }
+            }
         }
     }
 }

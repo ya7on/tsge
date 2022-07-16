@@ -1,8 +1,7 @@
 import {Sprite} from "../sprite";
-import {Canvas} from "../canvas";
 import {KeyProperties} from "../keyboardEmitter";
 
-interface Options {
+export interface Options {
     position?: {
         x: number,
         y: number,
@@ -23,7 +22,7 @@ export abstract class BaseGameObject {
 
     constructor(options: Options) {
         this.position = options.position || { x: 0, y: 0 };
-        this.previousPosition = this.position;
+        this.previousPosition = structuredClone(this.position);
         this.sprite = options.sprite || Sprite.getDefaultSprite();
     }
 
@@ -38,7 +37,7 @@ export abstract class BaseGameObject {
         return sprite_frame
     }
 
-    public getVisibilityBorders(): [[number, number], [number, number]] {
+    public getVisibilityBorders(): ObjectBorders {
         const sprite_frame = this.sprite.getActiveFrame();
         return [
             [
@@ -49,6 +48,10 @@ export abstract class BaseGameObject {
                 sprite_frame.destinationHeight,
             ]
         ]
+    }
+
+    public onCollision<T>(object: T) {
+        this.position = structuredClone(this.previousPosition);
     }
 
     abstract onStep(keyboard: KeyProperties): void

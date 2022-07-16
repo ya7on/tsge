@@ -1,5 +1,5 @@
 import {BaseGameObject} from "./objects/base";
-import {objectOverObject, pointInSquare} from "./collision";
+import {chechCollision, objectOverObject, pointInSquare} from "./collision";
 
 export class GameMap {
     private objects: BaseGameObject[]
@@ -30,26 +30,19 @@ export class GameMap {
 
     public getVisibleObjects(): BaseGameObject[] {
         return this.objects.filter((object) => {
-            const [[objectX, objectY], [objectWidth, objectHeight]] = object.getVisibilityBorders();
-            const objectSquare: [number, number, number, number] = [objectX, objectY, objectWidth, objectHeight]
-
-            const leftTopPoint: [number, number] = [objectX, objectY];
-            const leftBottomPoint: [number, number] = [objectX, objectY + objectHeight];
-            const rightTopPoint: [number, number] = [objectX + objectWidth, objectY];
-            const rightBottomPoint: [number, number] = [objectX + objectWidth, objectY + objectHeight];
-
-            const visibleSquare: [number, number, number, number] = [
-                this.cameraPosition.x,
-                this.cameraPosition.y,
-                this.cameraPosition.resolutionWidth,
-                this.cameraPosition.resolutionHeight,
+            const objectSquare = object.getVisibilityBorders();
+            const visibleSquare: ObjectBorders = [
+                [
+                    this.cameraPosition.x,
+                    this.cameraPosition.y,
+                ],
+                [
+                    this.cameraPosition.resolutionWidth,
+                    this.cameraPosition.resolutionHeight,
+                ]
             ];
 
-            return pointInSquare(leftTopPoint, visibleSquare) ||
-                pointInSquare(leftBottomPoint, visibleSquare) ||
-                pointInSquare(rightTopPoint, visibleSquare) ||
-                pointInSquare(rightBottomPoint, visibleSquare) ||
-                objectOverObject(objectSquare, visibleSquare)
+            return chechCollision(objectSquare, visibleSquare);
         });
     }
 

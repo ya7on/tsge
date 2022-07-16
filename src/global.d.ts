@@ -1,3 +1,5 @@
+type ObjectBorders = [[number, number], [number, number]];
+
 interface DrawData {
     source: CanvasImageSource,
     sourceX: number,

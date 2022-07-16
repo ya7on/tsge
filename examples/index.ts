@@ -1,24 +1,24 @@
 import engine from "../src/lib";
 import {KeyProperties} from "../src/keyboardEmitter";
+import {BaseGameObject} from "../src/objects/base";
+import {PlayableObject} from "../src/objects/playableObject";
 
-class Player extends engine.BaseGameObject {
+class Player extends PlayableObject {
     onRender(): void {
         //
     }
 
     onStep(keyboard: KeyProperties): void {
-        if (keyboard.KeyD.pressed) {
-            this.position.x += 0.1;
-        }
-        if (keyboard.KeyA.pressed) {
-            this.position.x -= 0.1;
-        }
-        if (keyboard.KeyW.pressed) {
-            this.position.y -= 0.1;
-        }
-        if (keyboard.KeyS.pressed) {
-            this.position.y += 0.1;
-        }
+        //
+    }
+
+}
+
+class OtherObject extends BaseGameObject {
+    onRender(): void {
+    }
+
+    onStep(keyboard: KeyProperties): void {
     }
 
 }
@@ -27,4 +27,11 @@ document.addEventListener("DOMContentLoaded", function(_) {
     const e = new engine.Engine(<HTMLCanvasElement>document.getElementById("canvas"));
     const p = new Player({});
     e.register(p);
+    const o = new OtherObject({
+        position: {
+            x: 50,
+            y: 10,
+        }
+    });
+    e.register(o);
 });

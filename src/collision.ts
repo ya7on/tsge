@@ -1,16 +1,23 @@
-export function pointInSquare(point: [number, number], square: [number, number, number, number]): boolean {
+export enum CollisionSide {
+    Top = "Top",
+    Bottom = "Bottom",
+    Left = "Left",
+    Right = "Right"
+}
+
+export function pointInSquare(point: [number, number], square: ObjectBorders): boolean {
     const [pointX, pointY] = point;
-    const [squareX, squareY, squareWidth, squareHeight] = square;
-    return pointX > squareX && squareX < squareX + squareWidth &&
+    const [[squareX, squareY], [squareWidth, squareHeight]] = square;
+    return pointX > squareX && pointX < squareX + squareWidth &&
         pointY > squareY && pointY < squareY + squareHeight
 }
 
 export function objectOverObject(
-    object1: [number, number, number, number],
-    object2: [number, number, number, number],
+    object1: ObjectBorders,
+    object2: ObjectBorders,
 ): boolean {
-    const [object1X, object1Y, object1Width, object1Height] = object1;
-    const [object2X, object2Y, object2Width, object2Height] = object2;
+    const [[object1X, object1Y], [object1Width, object1Height]] = object1;
+    const [[object2X, object2Y], [object2Width, object2Height]] = object2;
 
     const isFullOver = object1X < object2X &&
         object1X + object1Width > object2X + object2Width &&
@@ -30,4 +37,19 @@ export function objectOverObject(
         object1X + object1Width > object2X + object2Width;
 
     return isFullOver || isVerticalOver || isHorizontalOver;
+}
+
+export function chechCollision(object1: ObjectBorders, object2: ObjectBorders): boolean {
+    const [[object1X, object1Y], [object1Width, object1Height]] = object1;
+
+    const leftTopPoint: [number, number] = [object1X, object1Y];
+    const leftBottomPoint: [number, number] = [object1X, object1Y + object1Height];
+    const rightTopPoint: [number, number] = [object1X + object1Width, object1Y];
+    const rightBottomPoint: [number, number] = [object1X + object1Width, object1Y + object1Height];
+
+    return pointInSquare(leftTopPoint, object2) ||
+        pointInSquare(leftBottomPoint, object2) ||
+        pointInSquare(rightTopPoint, object2) ||
+        pointInSquare(rightBottomPoint, object2) ||
+        objectOverObject(object1, object2);
 }
