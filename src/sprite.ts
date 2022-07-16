@@ -86,11 +86,11 @@ export class Sprite {
     static getDefaultSprite(): Sprite {
         const default_sprite = new Sprite();
         default_sprite.addFrame(
-            "https://www.imgonline.com.ua/examples/lanczos.png",
-            0,
-            0,
-            0,
-            0,
+            "https://neokardinki.ru/pictures/akvariumnye-krevetki-spektr-sveta-265_1.jpg",
+            150,
+            170,
+            50,
+            15,
             0,
             0,
             32,

@@ -8,16 +8,16 @@ class Player extends engine.BaseGameObject {
 
     onStep(keyboard: KeyProperties): void {
         if (keyboard.KeyD.pressed) {
-            this.position.x += 1;
+            this.position.x += 0.1;
         }
         if (keyboard.KeyA.pressed) {
-            this.position.x -= 1;
+            this.position.x -= 0.1;
         }
         if (keyboard.KeyW.pressed) {
-            this.position.y -= 1;
+            this.position.y -= 0.1;
         }
         if (keyboard.KeyS.pressed) {
-            this.position.y += 1;
+            this.position.y += 0.1;
         }
     }
 

@@ -2,7 +2,7 @@ import {unwrapOptional} from "./utils";
 
 export class Canvas {
     private htmlElement: HTMLCanvasElement;
-    public canvasDrawContext: CanvasRenderingContext2D;
+    private canvasDrawContext: CanvasRenderingContext2D;
 
     constructor(html_element: HTMLCanvasElement) {
         this.htmlElement = html_element;
@@ -15,6 +15,7 @@ export class Canvas {
     }
 
     public clearCanvas() {
+        this.canvasDrawContext.imageSmoothingEnabled = false;
         this.canvasDrawContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
 

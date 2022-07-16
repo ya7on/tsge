@@ -1,4 +1,5 @@
 import {BaseGameObject} from "./objects/base";
+import {objectOverObject, pointInSquare} from "./collision";
 
 export class GameMap {
     private objects: BaseGameObject[]
@@ -14,8 +15,8 @@ export class GameMap {
         this.cameraPosition = { // FIXME
             x: 0,
             y: 0,
-            resolutionWidth: 500,
-            resolutionHeight: 100,
+            resolutionWidth: 150,
+            resolutionHeight: 150,
         }
     }
 
@@ -27,16 +28,10 @@ export class GameMap {
         return this.objects;
     }
 
-    private pointInSquare(point: [number, number], square: [number, number, number, number]): boolean {
-        const [pointX, pointY] = point;
-        const [squareX, squareY, squareWidth, squareHeight] = square;
-        return pointX > squareX && squareX < squareX + squareWidth &&
-            pointY > squareY && pointY < squareY + squareHeight
-    }
-
     public getVisibleObjects(): BaseGameObject[] {
         return this.objects.filter((object) => {
             const [[objectX, objectY], [objectWidth, objectHeight]] = object.getVisibilityBorders();
+            const objectSquare: [number, number, number, number] = [objectX, objectY, objectWidth, objectHeight]
 
             const leftTopPoint: [number, number] = [objectX, objectY];
             const leftBottomPoint: [number, number] = [objectX, objectY + objectHeight];
@@ -50,16 +45,11 @@ export class GameMap {
                 this.cameraPosition.resolutionHeight,
             ];
 
-            return this.pointInSquare(leftTopPoint, visibleSquare) ||
-                this.pointInSquare(leftBottomPoint, visibleSquare) ||
-                this.pointInSquare(rightTopPoint, visibleSquare) ||
-                this.pointInSquare(rightBottomPoint, visibleSquare) ||
-                (
-                    objectX < this.cameraPosition.x &&
-                    objectX + objectWidth > this.cameraPosition.x + this.cameraPosition.resolutionWidth &&
-                    objectY < this.cameraPosition.y &&
-                    objectY + objectHeight > this.cameraPosition.y + this.cameraPosition.resolutionHeight
-                )
+            return pointInSquare(leftTopPoint, visibleSquare) ||
+                pointInSquare(leftBottomPoint, visibleSquare) ||
+                pointInSquare(rightTopPoint, visibleSquare) ||
+                pointInSquare(rightBottomPoint, visibleSquare) ||
+                objectOverObject(objectSquare, visibleSquare)
         });
     }
 
