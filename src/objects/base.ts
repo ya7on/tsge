@@ -31,22 +31,26 @@ export abstract class BaseGameObject {
         // TODO
     }
 
-    public handleRender(canvas: Canvas) {
-        // FIXME
+    public handleRender(): DrawData {
         const sprite_frame = this.sprite.getActiveFrame();
-        canvas.drawSpriteFrame(
-            <CanvasImageSource>sprite_frame.source,
-            sprite_frame.imageX,
-            sprite_frame.imageY,
-            sprite_frame.imageWidth,
-            sprite_frame.imageHeight,
-            this.position.x - sprite_frame.imageCenterX,
-            this.position.y - sprite_frame.imageCenterY,
-            sprite_frame.resolutionHeight,
-            sprite_frame.resolutionWidth,
-        );
+        sprite_frame.destinationCenterX += this.position.x;
+        sprite_frame.destinationCenterY += this.position.y;
+        return sprite_frame
+    }
+
+    public getVisibilityBorders(): [[number, number], [number, number]] {
+        const sprite_frame = this.sprite.getActiveFrame();
+        return [
+            [
+                this.position.x - sprite_frame.destinationCenterX,
+                this.position.y - sprite_frame.destinationCenterY
+            ], [
+                sprite_frame.destinationWidth,
+                sprite_frame.destinationHeight,
+            ]
+        ]
     }
 
     abstract onStep(keyboard: KeyProperties): void
-    abstract onRender(canvas: Canvas): void
+    abstract onRender(): void
 }
