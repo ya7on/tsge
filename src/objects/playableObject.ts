@@ -2,59 +2,109 @@ import {BaseGameObject, Options} from "./base";
 import {KeyProperties} from "../keyboardEmitter";
 
 export class PlayableObject extends BaseGameObject {
-    private horizontalTargetDirection: -1 | 0 | 1;
-    private verticalTargetDirection: -1 | 0 | 1;
-    private directionAngle: number;
-    private speed: number;
+    private rotation: {
+        target: number | null;
+        current: number;
+        direction: "clockwise" | "counterclockwise" | null,
+        lastAction: number,
+    };
+    private move: {
+        target: number;
+        current: number;
+    }
 
     constructor(options: Options) {
         super(options);
-        this.horizontalTargetDirection = 0;
-        this.verticalTargetDirection = 0;
-        this.directionAngle = 0;
-        this.speed = 0;
+
+        this.rotation = {
+            target: 0,
+            current: 0,
+            direction: null,
+            lastAction: 0,
+        };
+        this.move = {
+            target: 0,
+            current: 0,
+        }
     }
 
-    handleStep(keyboard: KeyProperties) {
-        super.handleStep(keyboard);
-
-        this.horizontalTargetDirection = 0;
-        this.verticalTargetDirection = 0;
-        this.speed = 0;
-        const speed = 0.5;
-
-        if (keyboard.KeyD.pressed) {
-            this.previousPosition.x = this.position.x;
-            this.horizontalTargetDirection += 1;
-            this.speed = speed;
-        }
+    private getTargetDirection(keyboard: KeyProperties) {
+        let horizontal: number = 0;
         if (keyboard.KeyA.pressed) {
-            this.previousPosition.x = this.position.x;
-            this.horizontalTargetDirection -= 1;
-            this.speed = speed;
+            horizontal -= 1;
         }
+        if (keyboard.KeyD.pressed) {
+            horizontal += 1;
+        }
+
+        let vertical: number = 0;
         if (keyboard.KeyW.pressed) {
-            this.previousPosition.y = this.position.y;
-            this.verticalTargetDirection -= 1;
-            this.speed = speed;
+            vertical += 1;
         }
         if (keyboard.KeyS.pressed) {
-            this.previousPosition.y = this.position.y;
-            this.verticalTargetDirection += 1;
-            this.speed = speed;
+            vertical -= 1;
         }
 
-        this.directionAngle =
-            Math.atan2(this.verticalTargetDirection, this.horizontalTargetDirection) * 180 / Math.PI;
-
-        this.position.x += this.speed * Math.cos((Math.PI / 180) * this.directionAngle);
-        this.position.y += this.speed * Math.sin((Math.PI / 180) * this.directionAngle);
+        if (horizontal || vertical) {
+            let newDirection = Math.atan2(vertical, horizontal) * (180 / Math.PI);
+            if (newDirection < 0) newDirection += 360;
+            if (newDirection !== this.rotation.target) {
+                this.calcuclateRotationDirection(newDirection);
+            }
+            this.rotation.target = newDirection;
+        } else {
+            this.rotation.target = null;
+        }
     }
 
-    onRender(): void {
+    private calcuclateRotationDirection(targetDirection: number) {
+        let relativeAngle = (targetDirection - this.rotation.current);
+        if (!relativeAngle) return;
+        if (relativeAngle > 180) relativeAngle -= 360;
+        if (relativeAngle <= -180) relativeAngle += 360;
+        if (relativeAngle > 0) {
+            this.rotation.direction = "counterclockwise";
+        }
+        if (relativeAngle < 0) {
+            this.rotation.direction = "clockwise";
+        }
+        console.log(this.rotation.current, this.rotation.direction);
     }
 
-    onStep(keyboard: KeyProperties): void {
+    private rotate() {
+        switch (this.rotation.direction) {
+            case "clockwise":
+                this.rotation.current -= 5;
+                break
+            case "counterclockwise":
+                this.rotation.current += 5;
+                break
+        }
+    }
+
+    public handleStep(keyboard: KeyProperties) {
+        super.handleStep(keyboard);
+
+        this.rotation.current = this.rotation.current % 360;
+        if (this.rotation.current < 0) this.rotation.current += 360;
+
+        this.getTargetDirection(keyboard);
+
+        if (this.rotation.target === this.rotation.current) {
+            this.rotation.direction = null;
+        }
+        if (this.rotation.target !== null) {
+            this.rotate();
+
+            this.position.x += 3 * Math.cos((Math.PI / 180) * this.rotation.current);
+            this.position.y -= 3 * Math.sin((Math.PI / 180) * this.rotation.current);
+        }
+    }
+
+    public onRender(): void {
+    }
+
+    public onStep(keyboard: KeyProperties): void {
     }
 
 }

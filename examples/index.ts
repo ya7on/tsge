@@ -27,11 +27,11 @@ document.addEventListener("DOMContentLoaded", function(_) {
     const e = new engine.Engine(<HTMLCanvasElement>document.getElementById("canvas"));
     const p = new Player({});
     e.register(p);
-    const o = new OtherObject({
-        position: {
-            x: 50,
-            y: 10,
-        }
-    });
-    e.register(o);
+    // const o = new OtherObject({
+    //     position: {
+    //         x: 50,
+    //         y: 10,
+    //     }
+    // });
+    // e.register(o);
 });
