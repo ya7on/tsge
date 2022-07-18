@@ -68,7 +68,6 @@ export class PlayableObject extends BaseGameObject {
         if (relativeAngle < 0) {
             this.rotation.direction = "clockwise";
         }
-        console.log(this.rotation.current, this.rotation.direction);
     }
 
     private rotate() {
@@ -85,6 +84,8 @@ export class PlayableObject extends BaseGameObject {
     public handleStep(keyboard: KeyProperties) {
         super.handleStep(keyboard);
 
+        let speed = 0;
+
         this.rotation.current = this.rotation.current % 360;
         if (this.rotation.current < 0) this.rotation.current += 360;
 
@@ -95,10 +96,10 @@ export class PlayableObject extends BaseGameObject {
         }
         if (this.rotation.target !== null) {
             this.rotate();
-
-            this.position.x += 3 * Math.cos((Math.PI / 180) * this.rotation.current);
-            this.position.y -= 3 * Math.sin((Math.PI / 180) * this.rotation.current);
+            speed = 1;
         }
+        this.position.x += speed * Math.cos((Math.PI / 180) * this.rotation.current);
+        this.position.y -= speed * Math.sin((Math.PI / 180) * this.rotation.current);
     }
 
     public onRender(): void {

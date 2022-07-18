@@ -1,5 +1,5 @@
 import {BaseGameObject} from "./objects/base";
-import {chechCollision, objectOverObject, pointInSquare} from "./collision";
+import {checkCollision} from "./collision";
 
 export class GameMap {
     private objects: BaseGameObject[]
@@ -15,8 +15,8 @@ export class GameMap {
         this.cameraPosition = { // FIXME
             x: 0,
             y: 0,
-            resolutionWidth: 150,
-            resolutionHeight: 150,
+            resolutionWidth: 1366,
+            resolutionHeight: 768,
         }
     }
 
@@ -42,7 +42,7 @@ export class GameMap {
                 ]
             ];
 
-            return chechCollision(objectSquare, visibleSquare);
+            return checkCollision(objectSquare, visibleSquare);
         });
     }
 

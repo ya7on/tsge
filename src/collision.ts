@@ -1,10 +1,3 @@
-export enum CollisionSide {
-    Top = "Top",
-    Bottom = "Bottom",
-    Left = "Left",
-    Right = "Right"
-}
-
 export function pointInSquare(point: [number, number], square: ObjectBorders): boolean {
     const [pointX, pointY] = point;
     const [[squareX, squareY], [squareWidth, squareHeight]] = square;
@@ -39,7 +32,7 @@ export function objectOverObject(
     return isFullOver || isVerticalOver || isHorizontalOver;
 }
 
-export function chechCollision(object1: ObjectBorders, object2: ObjectBorders): boolean {
+export function checkCollision(object1: ObjectBorders, object2: ObjectBorders): boolean {
     const [[object1X, object1Y], [object1Width, object1Height]] = object1;
 
     const leftTopPoint: [number, number] = [object1X, object1Y];

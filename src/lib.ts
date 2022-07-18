@@ -5,7 +5,7 @@ import {BaseGameObject} from "./objects/base";
 import {Sprite} from "./sprite";
 import {KeyboardEmitter} from "./keyboardEmitter";
 import {GameMap} from "./map";
-import {chechCollision} from "./collision";
+import {checkCollision} from "./collision";
 
 export class Engine {
     private readonly canvas: Canvas;
@@ -58,7 +58,7 @@ export class Engine {
                 }
                 const objectBorders = object.getVisibilityBorders();
                 const otherObjectBorders = otherObject.getVisibilityBorders();
-                if (chechCollision(objectBorders, otherObjectBorders)) {
+                if (checkCollision(objectBorders, otherObjectBorders)) {
                     object.onCollision(otherObject);
                 }
             }

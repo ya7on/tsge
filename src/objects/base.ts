@@ -27,7 +27,7 @@ export abstract class BaseGameObject {
     }
 
     public handleStep(_keyboard: KeyProperties) {
-        // TODO
+        this.sprite.handleStep();
     }
 
     public handleRender(): DrawData {
