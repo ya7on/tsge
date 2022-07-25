@@ -2,7 +2,9 @@
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["./src/lib.ts"],
   "entryPointStrategy": "expand",
-  "name": "TypeScript Game Engine",
+  "name": "TSGE",
   "readme": "none",
-  "out": "docs"
+  "htmlLang": "ru",
+  "out": "docs",
+  "sort": ["static-first", "visibility"]
 }

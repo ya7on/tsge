@@ -1,6 +1,6 @@
-type ObjectBorders = [[number, number], [number, number]];
+export type ObjectBorders = [[number, number], [number, number]];
 
-interface DrawData {
+export interface DrawData {
     source: CanvasImageSource,
     sourceX: number,
     sourceY: number,

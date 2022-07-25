@@ -1,3 +1,5 @@
+import {ObjectBorders} from "./global";
+
 export function pointInSquare(point: [number, number], square: ObjectBorders): boolean {
     const [pointX, pointY] = point;
     const [[squareX, squareY], [squareWidth, squareHeight]] = square;

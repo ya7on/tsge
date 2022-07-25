@@ -5,6 +5,9 @@ export enum TickerEvents {
     OnStep = "OnStep"
 }
 
+/**
+ * Ticker
+ */
 export class Ticker {
     private nextAnimationFrame: number;
     private tickerIntervalID: NodeJS.Timer;

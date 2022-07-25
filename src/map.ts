@@ -1,8 +1,9 @@
-import {BaseGameObject} from "./objects/base";
+import {BaseEntity} from "./objects/base";
 import {checkCollision} from "./collision";
+import {DrawData, ObjectBorders} from "./global";
 
 export class GameMap {
-    private objects: BaseGameObject[]
+    private objects: BaseEntity[]
     private cameraPosition: {
         x: number,
         y: number,
@@ -20,15 +21,15 @@ export class GameMap {
         }
     }
 
-    public register(object: BaseGameObject) {
+    public register(object: BaseEntity) {
         this.objects.push(object);
     }
 
-    public getAllObjects(): BaseGameObject[] {
+    public getAllObjects(): BaseEntity[] {
         return this.objects;
     }
 
-    public getVisibleObjects(): BaseGameObject[] {
+    public getVisibleObjects(): BaseEntity[] {
         return this.objects.filter((object) => {
             const objectSquare = object.getVisibilityBorders();
             const visibleSquare: ObjectBorders = [
@@ -46,7 +47,7 @@ export class GameMap {
         });
     }
 
-    public getDrawDataFromObject(object: BaseGameObject): DrawData {
+    public getDrawDataFromObject(object: BaseEntity): DrawData {
         let draw_data = object.handleRender();
         draw_data.destinationCenterX = (this.cameraPosition.x + draw_data.destinationCenterX) * window.innerWidth / this.cameraPosition.resolutionWidth;
         draw_data.destinationCenterY = (this.cameraPosition.y + draw_data.destinationCenterY) * window.innerHeight / this.cameraPosition.resolutionHeight;

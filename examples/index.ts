@@ -1,6 +1,6 @@
 import { Engine } from "../src/lib";
 import {KeyProperties} from "../src/keyboardEmitter";
-import {BaseGameObject} from "../src/objects/base";
+import {BaseEntity} from "../src/objects/base";
 import {PlayableObject} from "../src/objects/playableObject";
 
 class Player extends PlayableObject {
@@ -14,7 +14,7 @@ class Player extends PlayableObject {
 
 }
 
-class OtherObject extends BaseGameObject {
+class OtherObject extends BaseEntity {
     onRender(): void {
     }
 
