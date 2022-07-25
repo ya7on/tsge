@@ -27,6 +27,7 @@ export abstract class BaseGameObject {
     }
 
     public handleStep(_keyboard: KeyProperties) {
+        this.previousPosition = structuredClone(this.position);
         this.sprite.handleStep();
     }
 

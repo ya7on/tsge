@@ -1,3 +1,8 @@
+/**
+ * hello
+ * @packageDocumentation
+ */
+
 import {Canvas} from "./canvas";
 import {Ticker, TickerEvents} from "./ticker";
 import {EngineError} from "./error";
@@ -5,14 +10,28 @@ import {BaseGameObject} from "./objects/base";
 import {Sprite} from "./sprite";
 import {KeyboardEmitter} from "./keyboardEmitter";
 import {GameMap} from "./map";
-import {checkCollision} from "./collision";
 
+/**
+ * Main application class.
+ *
+ * @example
+ * ```html
+ * <canvas id="canvas"><canvas/>
+ * ```
+ * ```typescript
+ * const canvasElement = <HTMLCanvasElement>document.getElementById("canvas");
+ * const engine = new Engine(canvasElement);
+ * ```
+ */
 export class Engine {
     private readonly canvas: Canvas;
     private readonly ticker: Ticker;
     private readonly keyboardEmitter: KeyboardEmitter;
     private readonly map: GameMap;
 
+    /**
+     * @param {HTMLCanvasElement} element - HTML Canvas element to render
+     */
     constructor(element: HTMLCanvasElement) {
         this.canvas = new Canvas(element);
         this.ticker = new Ticker();
@@ -23,6 +42,11 @@ export class Engine {
         this.ticker.createTicker(TickerEvents.OnStep, () => this.onStep());
     }
 
+    /**
+     * Registration of game object.
+     * If you create new object, you need to register it.
+     * @param {BaseGameObject} object
+     */
     public register(object: BaseGameObject) {
         this.map.register(object);
     }
@@ -52,16 +76,16 @@ export class Engine {
         for (const object of this.map.getAllObjects()) {
             object.handleStep(this.keyboardEmitter.keysPressed);
             object.onStep(this.keyboardEmitter.keysPressed);
-            for (const otherObject of this.map.getAllObjects()) {
-                if (object === otherObject) {
-                    continue;
-                }
-                const objectBorders = object.getVisibilityBorders();
-                const otherObjectBorders = otherObject.getVisibilityBorders();
-                if (checkCollision(objectBorders, otherObjectBorders)) {
-                    object.onCollision(otherObject);
-                }
-            }
+            // for (const otherObject of this.map.getAllObjects()) {
+            //     if (object === otherObject) {
+            //         continue;
+            //     }
+            //     const objectBorders = object.getVisibilityBorders();
+            //     const otherObjectBorders = otherObject.getVisibilityBorders();
+            //     if (checkCollision(objectBorders, otherObjectBorders)) {
+            //         object.onCollision(otherObject);
+            //     }
+            // }
         }
     }
 }

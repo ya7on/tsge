@@ -43,6 +43,6 @@ export function checkCollision(object1: ObjectBorders, object2: ObjectBorders): 
     return pointInSquare(leftTopPoint, object2) ||
         pointInSquare(leftBottomPoint, object2) ||
         pointInSquare(rightTopPoint, object2) ||
-        pointInSquare(rightBottomPoint, object2) ||
-        objectOverObject(object1, object2);
+        pointInSquare(rightBottomPoint, object2)
+        // objectOverObject(object1, object2);
 }

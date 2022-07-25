@@ -1,0 +1,8 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/lib.ts"],
+  "entryPointStrategy": "expand",
+  "name": "TypeScript Game Engine",
+  "readme": "none",
+  "out": "docs"
+}
