@@ -1,6 +1,6 @@
 {
   "name": "tsge",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "src/lib.ts",
   "scripts": {
@@ -9,7 +9,7 @@
     "docs": "typedoc"
   },
   "author": "BehindLoader",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",

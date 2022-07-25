@@ -4,6 +4,10 @@
  *
  * ### TypeScript Game Engine
  *
+ * - [Документация по интерфейсу](https://behindloader.github.io/tsge/)
+ * - [NPM](https://www.npmjs.com/package/tsge)
+ * - [Исходный код](https://github.com/BehindLoader/tsge)
+ *
  * @author https://github.com/BehindLoader
  *
  * ### Установка и настройка
