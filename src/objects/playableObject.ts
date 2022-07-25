@@ -1,7 +1,10 @@
-import {BaseGameObject, Options} from "./base";
+import {BaseEntity, BaseEntityOptions} from "./base";
 import {KeyProperties} from "../keyboardEmitter";
 
-export class PlayableObject extends BaseGameObject {
+/**
+ * @group Entities
+ */
+export class PlayableObject extends BaseEntity {
     private rotation: {
         target: number | null;
         current: number;
@@ -13,7 +16,7 @@ export class PlayableObject extends BaseGameObject {
         current: number;
     }
 
-    constructor(options: Options) {
+    constructor(options: BaseEntityOptions) {
         super(options);
 
         this.rotation = {

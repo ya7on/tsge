@@ -1,3 +1,5 @@
+import {DrawData} from "./global";
+
 const CACHED_IMAGES: {[key: string]: CanvasImageSource,} = {};
 
 interface SpriteFrame {

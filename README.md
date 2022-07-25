@@ -1,48 +1,29 @@
-# ts-game-engine
+# TSGE (TypeScript Game Engine) [WIP]
 
-## Init
+- [Документация по интерфейсу](https://behindloader.github.io/tsge/)
+- [NPM](https://www.npmjs.com/package/tsge)
+- [Исходный код](https://github.com/BehindLoader/tsge)
 
+## Установка и настройка
+
+```sh
+npm i --save tsge
+```
+
+Создайте HTML элемент `<canvas />`
 ```html
 <html>
-<head>
-    <title>Example</title>
-</head>
-<body>
-<canvas id="canvas"><!-- YOUR CANVAS ELEMENT --></canvas>
-</body>
+    <head></head>
+    <body>
+        <!-- ... -->
+        <canvas id="canvas"></canvas>
+        <!-- ... -->
+    </body>
 </html>
 ```
 
+Внутри вашего проекта передайте его в конструктор класса [Engine](https://behindloader.github.io/tsge/classes/Engine.html)
 ```typescript
-import {Engine} from "./lib";
-
-const canvas = <HTMLCanvasElement>document.getElementById("canvas");
-const engine = new Engine(canvas);
-```
-
-## Playable object
-
-```typescript
-import {BaseGameObject} from "./base";
-
-class PlayableObject extends BaseGameObject {
-    onRender(): void {
-        //
-    }
-
-    onStep(keyboard: KeyProperties): void {
-        if (keyboard.KeyD.pressed) {
-            this.position.x += 1;
-        }
-        if (keyboard.KeyA.pressed) {
-            this.position.x -= 1;
-        }
-        if (keyboard.KeyW.pressed) {
-            this.position.y -= 1;
-        }
-        if (keyboard.KeyS.pressed) {
-            this.position.y += 1;
-        }
-    }
-}
+const canvasElement = <HTMLCanvasElement>document.getElementById("canvas");
+const engine = new Engine(canvasElement);
 ```

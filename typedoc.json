@@ -1,0 +1,10 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/lib.ts"],
+  "entryPointStrategy": "expand",
+  "name": "TSGE",
+  "readme": "none",
+  "htmlLang": "ru",
+  "out": "docs",
+  "sort": ["static-first", "visibility"]
+}

@@ -1,5 +1,10 @@
 import {unwrapOptional} from "./utils";
 
+/**
+ * Интерфейс взаимодействия с Canvas context API
+ *
+ * @group System
+ */
 export class Canvas {
     private htmlElement: HTMLCanvasElement;
     private canvasDrawContext: CanvasRenderingContext2D;

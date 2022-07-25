@@ -1,3 +1,5 @@
+import {ObjectBorders} from "./global";
+
 export function pointInSquare(point: [number, number], square: ObjectBorders): boolean {
     const [pointX, pointY] = point;
     const [[squareX, squareY], [squareWidth, squareHeight]] = square;
@@ -43,6 +45,6 @@ export function checkCollision(object1: ObjectBorders, object2: ObjectBorders): 
     return pointInSquare(leftTopPoint, object2) ||
         pointInSquare(leftBottomPoint, object2) ||
         pointInSquare(rightTopPoint, object2) ||
-        pointInSquare(rightBottomPoint, object2) ||
-        objectOverObject(object1, object2);
+        pointInSquare(rightBottomPoint, object2)
+        // objectOverObject(object1, object2);
 }
