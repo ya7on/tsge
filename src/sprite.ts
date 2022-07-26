@@ -2,7 +2,7 @@ import {DrawData} from "./global";
 
 const CACHED_IMAGES: {[key: string]: CanvasImageSource,} = {};
 
-interface SpriteFrame {
+export interface SpriteFrame {
     frame: DrawData,
     length: number,
 }

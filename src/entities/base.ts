@@ -34,7 +34,7 @@ export abstract class BaseEntity {
 
     /**
      * Системный метод обработки шага для объекта,
-     * вызывается каждый {@link !Ticker.stepOnce | тик шага}.
+     * вызывается каждый {@link ticker | тик шага}.
      *
      * @param {KeyProperties} _keyboard - информация о текущих нажатых клавишах
      */
@@ -44,7 +44,7 @@ export abstract class BaseEntity {
 
     /**
      * Системный метод обработки рендера для объекта,
-     * вызывается каждый {@link !Ticker.renderOnce | тик рендера},
+     * вызывается каждый {@link ticker | тик рендера},
      * получает данные о рендере объекта и передает их наверх
      */
     public handleRender(): DrawData {
@@ -53,6 +53,20 @@ export abstract class BaseEntity {
         sprite_frame.destinationCenterY += this.position.y;
         return sprite_frame
     }
+
+    /**
+     * Пользовательский метод обработки шага,
+     * вызывается каждый {@link ticker | тик шага}.
+     *
+     * @param {KeyProperties} keyboard - информация о текущих нажатых клавишах
+     */
+    abstract onStep(keyboard: KeyProperties): void
+
+    /**
+     * Пользовательский метод обработки рендера,
+     * вызывается каждый {@link ticker | тик рендера}.
+     */
+    abstract onRender(): void
 
     /**
      * Получает текущие видимые границы объекта
@@ -69,18 +83,4 @@ export abstract class BaseEntity {
             ]
         ]
     }
-
-    /**
-     * Пользовательский метод обработки шага,
-     * вызывается каждый {@link !Ticker.stepOnce | тик шага}.
-     *
-     * @param {KeyProperties} keyboard - информация о текущих нажатых клавишах
-     */
-    abstract onStep(keyboard: KeyProperties): void
-
-    /**
-     * Пользовательский метод обработки рендера,
-     * вызывается каждый {@link !Ticker.renderOnce | тик рендера}.
-     */
-    abstract onRender(): void
 }

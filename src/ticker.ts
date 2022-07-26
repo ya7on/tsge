@@ -1,8 +1,8 @@
-type TickerCallback = () => void;
+export type TickerCallback = () => void;
 
 export enum TickerEvents {
-    OnRender = "OnRender",
-    OnStep = "OnStep"
+    Render = "Render",
+    Step = "Step"
 }
 
 /**
@@ -18,23 +18,23 @@ export class Ticker {
 
     constructor() {
         this.tickers = {
-            [TickerEvents.OnRender]: [],
-            [TickerEvents.OnStep]: [],
+            [TickerEvents.Render]: [],
+            [TickerEvents.Step]: [],
         };
-        this.nextAnimationFrame = requestAnimationFrame(() => this.renderOnce());
-        this.tickerIntervalID = setInterval(() => {this.stepOnce();}, 0);
+        this.nextAnimationFrame = requestAnimationFrame(() => this.renderTick());
+        this.tickerIntervalID = setInterval(() => {this.stepTick();}, 0);
     }
 
-    private renderOnce() {
-        for (const ticker of this.tickers[TickerEvents.OnRender]) {
+    private renderTick() {
+        for (const ticker of this.tickers[TickerEvents.Render]) {
             ticker();
         }
 
-        this.nextAnimationFrame = requestAnimationFrame(() => this.renderOnce());
+        this.nextAnimationFrame = requestAnimationFrame(() => this.renderTick());
     }
 
-    private stepOnce() {
-        for (const ticker of this.tickers[TickerEvents.OnStep]) {
+    private stepTick() {
+        for (const ticker of this.tickers[TickerEvents.Step]) {
             ticker();
         }
     }

@@ -1,4 +1,4 @@
-import {BaseEntity} from "./objects/base";
+import {BaseEntity} from "./entities/base";
 import {checkCollision} from "./collision";
 import {DrawData, ObjectBorders} from "./global";
 
