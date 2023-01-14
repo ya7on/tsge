@@ -22,7 +22,7 @@ npm i --save tsge
 </html>
 ```
 
-Внутри вашего проекта передайте его в конструктор класса [Engine](https://behindloader.github.io/tsge/classes/Engine.html)
+Внутри вашего проекта передайте его в конструктор класса [Engine](https://ya7on.github.io/tsge/classes/Engine.html)
 ```typescript
 const canvasElement = <HTMLCanvasElement>document.getElementById("canvas");
 const engine = new Engine(canvasElement);
