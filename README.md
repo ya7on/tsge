@@ -1,8 +1,8 @@
 # TSGE (TypeScript Game Engine) [WIP]
 
-- [Документация по интерфейсу](https://behindloader.github.io/tsge/)
+- [Документация по интерфейсу](https://ya7on.github.io/tsge/)
 - [NPM](https://www.npmjs.com/package/tsge)
-- [Исходный код](https://github.com/BehindLoader/tsge)
+- [Исходный код](https://github.com/ya7on/tsge)
 
 ## Установка и настройка
 
